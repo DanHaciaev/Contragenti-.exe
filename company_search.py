@@ -160,7 +160,7 @@ LANG_NAMES = {"en": "English", "ru": "Русский", "ro": "Română"}
 
 TR = {
     "en": {
-        "title": "Company search — date.gov.md",
+        "title": "Company search — data2b.md",
         "search_label": "Search criterion:",
         "search_btn": "Search",
         "clear_btn": "×",
@@ -231,7 +231,7 @@ TR = {
         "una_adv_title": "What this changes in practice",
         "una_a1": "Data stays in your own infrastructure — the database is yours, "
                   "not a foreign cloud.",
-        "una_a2": "Built around Moldovan reality: IDNO, state registry date.gov.md, "
+        "una_a2": "Built around Moldovan reality: IDNO, the data2b.md company registry, "
                   "MDL bank accounts, local banks directory.",
         "una_a3": "Three interface languages out of the box: Română, Русский, English.",
         "una_a4": "Open integration: local HTTP API and XML, so 1C, a browser or any "
@@ -247,10 +247,10 @@ TR = {
         "about_text": (
             "Contragenti {version}\n"
             "A free tool from the una.md ERP ecosystem\n\n"
-            "Desktop tool for searching Moldovan legal entities on the date.gov.md "
-            "open-data portal, with a local counterparty database.\n\n"
+            "Desktop tool for searching Moldovan legal entities via the data2b.md "
+            "public directory, with a local counterparty database.\n\n"
             "Key features:\n"
-            "  - Online search by name / manager / IDNO via a real Chrome window\n"
+            "  - Online search by name / manager / IDNO\n"
             "  - Company card: basic data, founders, budget debts\n"
             "  - Local SQLite database ({count} companies stored) with offline search\n"
             "  - Export to CSV / Excel / Markdown\n"
@@ -324,7 +324,7 @@ TR = {
         "err_timeout": "Timed out. Captcha may be required, IDNO invalid, or nothing found.",
     },
     "ru": {
-        "title": "Поиск компаний — date.gov.md",
+        "title": "Поиск компаний — data2b.md",
         "search_label": "Критерий поиска:",
         "search_btn": "Поиск",
         "clear_btn": "×",
@@ -395,7 +395,7 @@ TR = {
                   "Без перенабора вручную и без промежуточных CSV.",
         "una_adv_title": "Что это меняет на практике",
         "una_a1": "Данные остаются в вашей инфраструктуре — база ваша, а не чужое облако.",
-        "una_a2": "Построена вокруг молдавских реалий: IDNO, госреестр date.gov.md, "
+        "una_a2": "Построена вокруг молдавских реалий: IDNO, справочник компаний data2b.md, "
                   "счета в MDL, справочник местных банков.",
         "una_a3": "Три языка интерфейса сразу: Română, Русский, English.",
         "una_a4": "Открытая интеграция: локальный HTTP-API и XML — с платформой могут "
@@ -411,10 +411,10 @@ TR = {
         "about_text": (
             "Contragenti {version}\n"
             "Бесплатный инструмент экосистемы ERP una.md\n\n"
-            "Настольная утилита для поиска юридических лиц Молдовы на портале "
-            "открытых данных date.gov.md, с локальной базой контрагентов.\n\n"
+            "Настольная утилита для поиска юридических лиц Молдовы через справочник "
+            "data2b.md, с локальной базой контрагентов.\n\n"
             "Возможности:\n"
-            "  - Онлайн-поиск по названию / руководителю / IDNO через реальный Chrome\n"
+            "  - Онлайн-поиск по названию / руководителю / IDNO\n"
             "  - Карточка компании: базовые данные, учредители, задолженность перед бюджетом\n"
             "  - Локальная база SQLite (сохранено компаний: {count}) с офлайн-поиском\n"
             "  - Экспорт в CSV / Excel / Markdown\n"
@@ -490,7 +490,7 @@ TR = {
         "err_timeout": "Истекло время ожидания. Возможно нужна капча, неверный IDNO или ничего не найдено.",
     },
     "ro": {
-        "title": "Căutare companii — date.gov.md",
+        "title": "Căutare companii — data2b.md",
         "search_label": "Criteriu de căutare:",
         "search_btn": "Caută",
         "clear_btn": "×",
@@ -562,8 +562,8 @@ TR = {
         "una_adv_title": "Ce schimbă acest lucru în practică",
         "una_a1": "Datele rămân în infrastructura dumneavoastră — baza este a voastră, "
                   "nu un cloud străin.",
-        "una_a2": "Construită în jurul realităților moldovenești: IDNO, registrul de stat "
-                  "date.gov.md, conturi în MDL, nomenclatorul băncilor locale.",
+        "una_a2": "Construită în jurul realităților moldovenești: IDNO, directorul de companii "
+                  "data2b.md, conturi în MDL, nomenclatorul băncilor locale.",
         "una_a3": "Trei limbi de interfață din start: Română, Русский, English.",
         "una_a4": "Integrare deschisă: API HTTP local și XML — cu platforma pot vorbi "
                   "1C, browserul sau orice program al vostru.",
@@ -578,10 +578,10 @@ TR = {
         "about_text": (
             "Contragenti {version}\n"
             "Instrument gratuit din ecosistemul ERP una.md\n\n"
-            "Utilitar desktop pentru căutarea persoanelor juridice din Moldova pe "
-            "portalul de date deschise date.gov.md, cu bază locală de contragenți.\n\n"
+            "Utilitar desktop pentru căutarea persoanelor juridice din Moldova prin "
+            "directorul public data2b.md, cu bază locală de contragenți.\n\n"
             "Funcționalități:\n"
-            "  - Căutare online după denumire / administrator / IDNO printr-o fereastră Chrome reală\n"
+            "  - Căutare online după denumire / administrator / IDNO\n"
             "  - Fișa companiei: date de bază, fondatori, restanțe față de buget\n"
             "  - Bază locală SQLite ({count} companii salvate) cu căutare offline\n"
             "  - Export în CSV / Excel / Markdown\n"
@@ -1562,6 +1562,10 @@ def settings_load():
                 cfg[key] = bool(saved[key])
     except Exception:  # noqa: BLE001
         pass          # файла ещё нет или он повреждён — берём значения по умолчанию
+    # OfficePlus-сборка: date.gov.md отключён безусловно — портал за невидимой
+    # reCAPTCHA нестабилен и не нужен клиенту, вся выдача идёт с data2b.md/БД.
+    # Даже старый settings.json с src_gov=true из прошлой версии не включит его.
+    cfg["src_gov"] = False
     return cfg
 
 
@@ -1982,16 +1986,16 @@ class App(tk.Tk):
             self.headless_var = tk.BooleanVar(value=cfg.get("headless", False))
             self.src_label = ttk.Label(bar)
             self.src_label.grid(row=0, column=4, padx=(10, 2))
-            self.chk_gov = ttk.Checkbutton(bar, variable=self.src_gov_var)
-            self.chk_gov.grid(row=0, column=5, padx=3)
+            # OfficePlus-сборка: чекбокс «date.gov.md» не создаётся вовсе —
+            # источник отключён навсегда (см. settings_load) и не должен быть
+            # виден или доступен для повторного включения из интерфейса.
             self.chk_d2b = ttk.Checkbutton(bar, variable=self.src_d2b_var)
             self.chk_d2b.grid(row=0, column=6, padx=3)
             self.chk_db = ttk.Checkbutton(bar, variable=self.src_db_var)
             self.chk_db.grid(row=0, column=7, padx=3)
             self.chk_headless = ttk.Checkbutton(bar, variable=self.headless_var)
             self.chk_headless.grid(row=0, column=8, padx=(10, 3))
-            for var in (self.src_gov_var, self.src_d2b_var,
-                        self.src_db_var, self.headless_var):
+            for var in (self.src_d2b_var, self.src_db_var, self.headless_var):
                 var.trace_add("write", lambda *_: self._save_settings())
         else:
             entry.bind("<Return>", lambda e: self.on_db_find())
@@ -2106,7 +2110,6 @@ class App(tk.Tk):
             b.config(text=self.t("clear_btn"))
         self.chk_headless.config(text=self.t("headless"))
         self.src_label.config(text=self.t("src_lbl"))
-        self.chk_gov.config(text=self.t("src_gov"))
         self.chk_d2b.config(text=self.t("src_d2b"))
         self.chk_db.config(text=self.t("src_db"))
         self.detail.config(text=self.t("detail_title"))
@@ -3415,7 +3418,7 @@ def run_demo(outdir, lang="ru"):
 
 
 def parse_args(argv=None):
-    ap = argparse.ArgumentParser(description="Contragenti — date.gov.md company search")
+    ap = argparse.ArgumentParser(description="Contragenti — data2b.md company search")
     ap.add_argument("--port", type=int, default=DEFAULT_PORT, help="HTTP API port")
     ap.add_argument("--host", default="127.0.0.1", help="HTTP API host")
     ap.add_argument("--lang", default="ru", choices=LANGS, help="UI language")

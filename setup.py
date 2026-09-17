@@ -197,14 +197,14 @@ bdist_msi_options = {
     },
     "summary_data": {
         "author": "Pavel Tuhari",
-        "comments": "Contragenti — поиск юридических лиц Молдовы (date.gov.md)",
+        "comments": "Contragenti — поиск юридических лиц Молдовы (data2b.md)",
     },
 }
 
 setup(
     name="Contragenti",
     version=APP_VERSION,
-    description="Contragenti — поиск юридических лиц Молдовы (date.gov.md)",
+    description="Contragenti — поиск юридических лиц Молдовы (data2b.md)",
     options={
         "build_exe": build_exe_options,
         "bdist_msi": bdist_msi_options,

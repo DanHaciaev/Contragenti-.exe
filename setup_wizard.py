@@ -120,8 +120,7 @@ TR = {
         "done_warn": "Готово с замечаниями (%d). Программы работают, но посмотрите отчёт.",
         "done_fail": "Есть ошибки (%d). Отчёт с техническим паспортом и логом сохранён:\n%s\n"
                      "Отправьте его разработчику — кнопки ниже откроют заготовку issue или письма.",
-        "chrome_missing": "Chrome не найден. Он нужен Contragenti для портала date.gov.md — "
-                          "установите с google.com/chrome.",
+        "chrome_missing": "Chrome не используется этой сборкой Contragenti (поиск ведётся через data2b.md).",
         "chrome_get": "Скачать Chrome",
         "python_missing": "Команда python не работает. Contragenti.exe и Demo CRM работают без него; "
                           "нужен для sdk/python. В PowerShell выполните: python",
@@ -184,8 +183,7 @@ TR = {
         "done_warn": "Done with warnings (%d). The programs work, but please check the report.",
         "done_fail": "There are errors (%d). A report with the system passport and log is saved:\n%s\n"
                      "Send it to the developer — the buttons below open an issue or e-mail draft.",
-        "chrome_missing": "Chrome not found. Contragenti needs it for the date.gov.md portal — "
-                          "install it from google.com/chrome.",
+        "chrome_missing": "Chrome is not needed by this Contragenti build (search runs via data2b.md).",
         "chrome_get": "Get Chrome",
         "python_missing": "The python command does not work. Contragenti.exe and Demo CRM work without it; "
                           "it is needed for sdk/python. In PowerShell run: python",
@@ -249,8 +247,7 @@ TR = {
         "done_warn": "Gata, cu observații (%d). Programele funcționează, dar verificați raportul.",
         "done_fail": "Există erori (%d). Raportul cu pașaportul tehnic și logul este salvat:\n%s\n"
                      "Trimiteți-l dezvoltatorului — butoanele de mai jos deschid un issue sau un e-mail.",
-        "chrome_missing": "Chrome nu a fost găsit. Contragenti are nevoie de el pentru portalul date.gov.md — "
-                          "instalați-l de pe google.com/chrome.",
+        "chrome_missing": "Chrome nu este necesar pentru această versiune de Contragenti (căutarea se face prin data2b.md).",
         "chrome_get": "Descarcă Chrome",
         "python_missing": "Comanda python nu funcționează. Contragenti.exe și Demo CRM funcționează fără ea; "
                           "este necesară pentru sdk/python. În PowerShell: python",
@@ -777,7 +774,7 @@ class Wizard:
         if self.info.get("chrome"):
             self.step("st_chrome", "ok", "%s %s" % (self.info["chrome"], self.info.get("chrome_ver", "")))
         else:
-            self.step("st_chrome", "warn", self.t["chrome_missing"])
+            self.step("st_chrome", "skip", self.t["chrome_missing"])
 
     def python_missing_text(self):
         wk = self.info.get("win") or windows_kind()
