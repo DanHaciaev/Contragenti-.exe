@@ -5,25 +5,20 @@
     .venv\\Scripts\\python setup.py build          # только exe (build/exe.win-amd64-3.12/)
     .venv\\Scripts\\python setup.py bdist_msi       # exe + MSI-инсталлятор (dist/*.msi)
 
-Demo CRM (crm_delphi/) — готовый Delphi-бинарник ContragentiCRM.exe —
-включается в установку целиком (подкаталог DemoCRM/) вместе с ярлыком
-«Demo CRM (SDK Contragenti)» на рабочем столе. Он уже собран и лежит в
-репозитории (crm_delphi/ContragentiCRM.exe); чтобы пересобрать заново из
-исходников, нужен RAD Studio/dcc32 — см. crm_delphi/build.bat. Если файла
-нет, сборка просто пропускает Demo CRM с предупреждением (Contragenti
-собирается и без неё).
+OfficePlus-сборка: Demo CRM (crm_delphi/) не включается — это была
+демонстрация/реклама платформы una.md от автора Contragenti, сотрудникам
+OfficePlus она не нужна.
 
 Мастер настройки (setup_wizard.py → «ContragentiSetup.exe») идёт первым в
 списке Executable: именно первый exe cx_Freeze запускает по галочке «Launch
 on finish» в конце установки (launch_on_finish=True). Мастер докачивает из
 GitHub свежие компоненты и стартовую базу (release.json, data/), настраивает
-crm.ini и реестр, заполняет демо-данные, прогоняет самопроверку и при ошибках
-собирает отчёт (паспорт системы + лог) для отправки разработчику. Он же
-доступен из меню «Пуск» — «Contragenti — настройка и обновление».
+crm.ini и реестр, прогоняет самопроверку и при ошибках собирает отчёт
+(паспорт системы + лог) для отправки разработчику. Он же доступен из меню
+«Пуск» — «Contragenti — настройка и обновление».
 """
 
 import os
-import subprocess
 import sys
 import zipfile
 from cx_Freeze import setup, Executable
@@ -31,46 +26,25 @@ from cx_Freeze import setup, Executable
 APP_VERSION = "1.3.7"   # то же значение — в VERSION, release.json и company_search.py
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-_DEMO_CRM_EXE = os.path.join(_HERE, "crm_delphi", "ContragentiCRM.exe")
-_HAS_DEMO_CRM = os.path.exists(_DEMO_CRM_EXE)
-if not _HAS_DEMO_CRM:
-    print(f"[setup.py] предупреждение: {_DEMO_CRM_EXE} не найден — "
-          "Demo CRM не будет включена в установку (см. crm_delphi/build.bat)")
 
 
-def _prepare_seed_dbs():
-    """Базы с данными для установки: companies.db (стартовая база компаний
-    date.gov.md из data/companies_seed.zip) и DemoCRM/clients.db (полный
-    демонстрационный набор фирмы — ContragentiCRM.exe --seed-demo). После
-    установки в Program Files программы при первом запуске копируют их в
-    %LOCALAPPDATA%\\Contragenti и работают с копиями."""
+def _prepare_seed_db():
+    """Стартовая база компаний (companies.db) для установки — из
+    data/companies_seed.zip. После установки в Program Files программа при
+    первом запуске копирует её в %LOCALAPPDATA%\\Contragenti и работает
+    с копией."""
     seed_dir = os.path.join(_HERE, "build", "seed")
     os.makedirs(seed_dir, exist_ok=True)
     companies = os.path.join(seed_dir, "companies.db")
     with zipfile.ZipFile(os.path.join(_HERE, "data", "companies_seed.zip")) as z:
         with open(companies, "wb") as f:
             f.write(z.read("companies.db"))
-    clients = ""
-    if _HAS_DEMO_CRM:
-        clients = os.path.join(seed_dir, "clients.db")
-        if os.path.exists(clients):
-            os.remove(clients)
-        # GUI-exe не пишет в pipe — вывод в файл
-        with open(os.path.join(seed_dir, "seed.log"), "w", encoding="utf-8", errors="replace") as log:
-            subprocess.run([_DEMO_CRM_EXE, "--seed-demo", clients], stdout=log, stderr=subprocess.STDOUT,
-                           timeout=300, check=True)
-        for extra in ("clients.db-journal",):
-            try:
-                os.remove(os.path.join(seed_dir, extra))
-            except OSError:
-                pass
-    print(f"[setup.py] стартовые базы: {companies} ({os.path.getsize(companies)} байт)"
-          + (f", {clients} ({os.path.getsize(clients)} байт)" if clients else ""))
-    return companies, clients
+    print(f"[setup.py] стартовая база: {companies} ({os.path.getsize(companies)} байт)")
+    return companies
 
 
 _BUILDING = any(a.startswith(("build", "bdist")) for a in sys.argv[1:])
-_SEED_COMPANIES, _SEED_CLIENTS = _prepare_seed_dbs() if _BUILDING else ("", "")
+_SEED_COMPANIES = _prepare_seed_db() if _BUILDING else ""
 
 build_exe_options = {
     "packages": [
@@ -122,20 +96,6 @@ if _SEED_COMPANIES:
     # база компаний с данными — утилита сразу не пустая
     build_exe_options["include_files"].append((_SEED_COMPANIES, "companies.db"))
 
-if _HAS_DEMO_CRM:
-    build_exe_options["include_files"] += [
-        (_DEMO_CRM_EXE, "DemoCRM/ContragentiCRM.exe"),
-        # переводы интерфейса и описания бизнес-процессов лежат рядом с exe
-        # и правятся без пересборки
-        ("crm_delphi/lang.json", "DemoCRM/lang.json"),
-        ("crm_delphi/processes.json", "DemoCRM/processes.json"),
-        ("crm_delphi/README_ru.md", "DemoCRM/README_ru.md"),
-        ("crm_delphi/sample_card.xml", "DemoCRM/sample_card.xml"),
-    ]
-    if _SEED_CLIENTS:
-        # демо-база CRM с клиентами, сделками, заказами и задачами
-        build_exe_options["include_files"].append((_SEED_CLIENTS, "DemoCRM/clients.db"))
-
 # Тихий запуск GUI-приложения (без консольного окна)
 base = "Win32GUI" if sys.platform == "win32" else None
 
@@ -159,21 +119,6 @@ executables = [
         shortcut_dir="DesktopFolder",
     ),
 ]
-
-if _HAS_DEMO_CRM:
-    # cx_Freeze создаёт Executable только из .py-скрипта, поэтому готовый
-    # ContragentiCRM.exe запускается через тонкий Python-лаунчер
-    # (run_demo_crm.py) — это даёт Demo CRM собственный ярлык на рабочем столе.
-    executables.append(
-        Executable(
-            "run_demo_crm.py",
-            base=base,
-            target_name="Demo CRM.exe",
-            icon="app_icon.ico",
-            shortcut_name="Demo CRM (SDK Contragenti)",
-            shortcut_dir="DesktopFolder",
-        )
-    )
 
 bdist_msi_options = {
     "upgrade_code": "{8E2C6C7A-6B0B-4C2C-9C7A-3B2D4E5F6A7B}",

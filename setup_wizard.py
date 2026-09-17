@@ -17,16 +17,16 @@
          подпись Python Software Foundation и ставится тихо в профиль
          пользователя с PATH и py-лаунчером.
      Порядок: winget → Store → python.org; что сработало, видно в логе;
-  3. обновление компонентов из GitHub (Demo CRM, переводы, описания
-     процессов, инструкции) — по списку из release.json репозитория;
-     если в репозитории вышла новая версия MSI — предлагает скачать её;
-  4. стартовая база компаний date.gov.md: zip из репозитория (data/
-     companies_seed.zip), сливается с локальной companies.db по ключу IDNO —
-     существующие записи не трогаются;
-  5. настройка: crm.ini для Demo CRM (путь к Contragenti.exe, язык), язык в
-     реестре (HKCU\\Software\\DemoCRM\\Language), каталог логов;
-  6. демонстрационные данные Demo CRM (--seed-demo) — по желанию;
-  7. самопроверка обеих программ (--selftest).
+  3. обновление компонентов из GitHub (переводы, описания процессов,
+     инструкции) — по списку из release.json репозитория; если в
+     репозитории вышла новая версия MSI — предлагает скачать её;
+  4. стартовая база компаний: zip из репозитория (data/companies_seed.zip),
+     сливается с локальной companies.db по ключу IDNO — существующие
+     записи не трогаются;
+  5. самопроверка Contragenti (--selftest).
+
+OfficePlus-сборка: Demo CRM (демонстрация платформы una.md от автора
+Contragenti) не включена — сотрудникам OfficePlus она не нужна.
 
 Каждый шаг пишется в install.log. Если что-то не так — собирается отчёт
 (паспорт + лог + ошибки + последние события Windows Installer) и предлагается
@@ -84,14 +84,13 @@ _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 TR = {
     "ru": {
         "title": "Contragenti — настройка после установки",
-        "intro": "Мастер настроит компьютер так, чтобы Contragenti, Demo CRM и SDK заработали сразу. "
+        "intro": "Мастер настроит компьютер так, чтобы Contragenti и SDK заработали сразу. "
                  "Отметьте нужные шаги и нажмите «Выполнить».",
         "language": "Язык:",
         "opt_python": "Если нет Python — установить: новый Windows через winget / Store, старый — с python.org",
-        "opt_update": "Обновить компоненты из GitHub (Demo CRM, переводы, описания процессов)",
-        "opt_db": "Загрузить стартовую базу компаний date.gov.md (zip из GitHub)",
-        "opt_seed": "Заполнить Demo CRM демонстрационными данными",
-        "opt_selftest": "Выполнить самопроверку Contragenti и Demo CRM",
+        "opt_update": "Обновить компоненты из GitHub (переводы, описания процессов)",
+        "opt_db": "Загрузить стартовую базу компаний (zip из GitHub)",
+        "opt_selftest": "Выполнить самопроверку Contragenti",
         "opt_shortcuts": "Проверить ярлыки на рабочем столе",
         "run": "Выполнить",
         "close": "Закрыть",
@@ -100,7 +99,7 @@ TR = {
         "send_mail": "Отправить на e-mail",
         "open_logs": "Папка логов",
         "copy": "Скопировать отчёт",
-        "start_apps": "Запустить Contragenti и Demo CRM",
+        "start_apps": "Запустить Contragenti",
         "st_passport": "Технический паспорт системы",
         "st_chrome": "Google Chrome",
         "st_python": "Python",
@@ -116,22 +115,22 @@ TR = {
         "warn": "ВНИМАНИЕ",
         "fail": "ОШИБКА",
         "skip": "пропущено",
-        "done_ok": "Готово: все шаги выполнены. Contragenti и Demo CRM готовы к работе.",
+        "done_ok": "Готово: все шаги выполнены. Contragenti готов к работе.",
         "done_warn": "Готово с замечаниями (%d). Программы работают, но посмотрите отчёт.",
         "done_fail": "Есть ошибки (%d). Отчёт с техническим паспортом и логом сохранён:\n%s\n"
                      "Отправьте его разработчику — кнопки ниже откроют заготовку issue или письма.",
         "chrome_missing": "Chrome не используется этой сборкой Contragenti (поиск ведётся через data2b.md).",
         "chrome_get": "Скачать Chrome",
-        "python_missing": "Команда python не работает. Contragenti.exe и Demo CRM работают без него; "
+        "python_missing": "Команда python не работает. Contragenti.exe работает без него; "
                           "нужен для sdk/python. В PowerShell выполните: python",
         "python_get": "Установить Python (команда python)",
         "python_offline": "Python не найден, команда python пропущена (нет сети / --offline).",
         "python_missing_modern": "Python не найден. Это современный Windows: нажмите «Установить Python» — "
                                  "поставится через winget или Microsoft Store (в одно касание). "
-                                 "Contragenti.exe и Demo CRM работают и без него; нужен для sdk/python.",
+                                 "Contragenti.exe работает и без него; нужен для sdk/python.",
         "python_missing_legacy": "Python не найден. Это старый Windows без Store: нажмите «Установить Python» — "
                                  "мастер скачает официальный установщик с python.org, проверит подпись и "
-                                 "поставит его в профиль пользователя. Exe и Demo CRM работают и без него.",
+                                 "поставит его в профиль пользователя. Exe работает и без него.",
         "python_installed": "Python установлен: %s %s (через %s).",
         "python_get_store": "Установить Python (winget / Microsoft Store)",
         "python_get_org": "Установить Python 3.12 с python.org",
@@ -147,14 +146,13 @@ TR = {
     },
     "en": {
         "title": "Contragenti — post-install setup",
-        "intro": "This wizard configures the computer so that Contragenti, Demo CRM and the SDK work right away. "
+        "intro": "This wizard configures the computer so that Contragenti and the SDK work right away. "
                  "Tick the steps you need and press Run.",
         "language": "Language:",
         "opt_python": "If Python is missing, install it: modern Windows via winget / Store, older — from python.org",
-        "opt_update": "Update components from GitHub (Demo CRM, translations, process descriptions)",
-        "opt_db": "Download the starter company database from date.gov.md (zip from GitHub)",
-        "opt_seed": "Fill Demo CRM with demo data",
-        "opt_selftest": "Run self-tests of Contragenti and Demo CRM",
+        "opt_update": "Update components from GitHub (translations, process descriptions)",
+        "opt_db": "Download the starter company database (zip from GitHub)",
+        "opt_selftest": "Run self-test of Contragenti",
         "opt_shortcuts": "Check desktop shortcuts",
         "run": "Run",
         "close": "Close",
@@ -163,7 +161,7 @@ TR = {
         "send_mail": "Send by e-mail",
         "open_logs": "Logs folder",
         "copy": "Copy report",
-        "start_apps": "Start Contragenti and Demo CRM",
+        "start_apps": "Start Contragenti",
         "st_passport": "System passport",
         "st_chrome": "Google Chrome",
         "st_python": "Python",
@@ -179,23 +177,23 @@ TR = {
         "warn": "WARNING",
         "fail": "ERROR",
         "skip": "skipped",
-        "done_ok": "Done: all steps completed. Contragenti and Demo CRM are ready.",
+        "done_ok": "Done: all steps completed. Contragenti is ready.",
         "done_warn": "Done with warnings (%d). The programs work, but please check the report.",
         "done_fail": "There are errors (%d). A report with the system passport and log is saved:\n%s\n"
                      "Send it to the developer — the buttons below open an issue or e-mail draft.",
         "chrome_missing": "Chrome is not needed by this Contragenti build (search runs via data2b.md).",
         "chrome_get": "Get Chrome",
-        "python_missing": "The python command does not work. Contragenti.exe and Demo CRM work without it; "
+        "python_missing": "The python command does not work. Contragenti.exe works without it; "
                           "it is needed for sdk/python. In PowerShell run: python",
         "python_get": "Install Python (python command)",
         "python_offline": "Python not found; python command skipped (offline / --offline).",
         "python_missing_modern": "Python not found. This is a modern Windows: press “Install Python” — "
                                  "it installs via winget or Microsoft Store (one click). "
-                                 "Contragenti.exe and Demo CRM work without it; needed for sdk/python.",
+                                 "Contragenti.exe works without it; needed for sdk/python.",
         "python_missing_legacy": "Python not found. This is an older Windows without the Store: press "
                                  "“Install Python” — the wizard downloads the official python.org installer, "
                                  "verifies its signature and installs it for the current user. "
-                                 "The exe and Demo CRM work without it.",
+                                 "The exe works without it.",
         "python_installed": "Python installed: %s %s (via %s).",
         "python_get_store": "Install Python (winget / Microsoft Store)",
         "python_get_org": "Install Python 3.12 from python.org",
@@ -211,14 +209,13 @@ TR = {
     },
     "ro": {
         "title": "Contragenti — configurare după instalare",
-        "intro": "Asistentul configurează calculatorul astfel încât Contragenti, Demo CRM și SDK să funcționeze imediat. "
+        "intro": "Asistentul configurează calculatorul astfel încât Contragenti și SDK să funcționeze imediat. "
                  "Bifați pașii necesari și apăsați „Execută”.",
         "language": "Limba:",
         "opt_python": "Dacă lipsește Python — instalează: Windows nou prin winget / Store, vechi — de pe python.org",
-        "opt_update": "Actualizează componentele din GitHub (Demo CRM, traduceri, descrieri de procese)",
-        "opt_db": "Descarcă baza inițială de companii date.gov.md (zip din GitHub)",
-        "opt_seed": "Completează Demo CRM cu date demonstrative",
-        "opt_selftest": "Execută autoverificarea Contragenti și Demo CRM",
+        "opt_update": "Actualizează componentele din GitHub (traduceri, descrieri de procese)",
+        "opt_db": "Descarcă baza inițială de companii (zip din GitHub)",
+        "opt_selftest": "Execută autoverificarea Contragenti",
         "opt_shortcuts": "Verifică scurtăturile de pe desktop",
         "run": "Execută",
         "close": "Închide",
@@ -227,7 +224,7 @@ TR = {
         "send_mail": "Trimite prin e-mail",
         "open_logs": "Dosarul cu loguri",
         "copy": "Copiază raportul",
-        "start_apps": "Pornește Contragenti și Demo CRM",
+        "start_apps": "Pornește Contragenti",
         "st_passport": "Pașaportul tehnic al sistemului",
         "st_chrome": "Google Chrome",
         "st_python": "Python",
@@ -243,23 +240,23 @@ TR = {
         "warn": "ATENȚIE",
         "fail": "EROARE",
         "skip": "omis",
-        "done_ok": "Gata: toți pașii au fost executați. Contragenti și Demo CRM sunt pregătite.",
+        "done_ok": "Gata: toți pașii au fost executați. Contragenti este pregătit.",
         "done_warn": "Gata, cu observații (%d). Programele funcționează, dar verificați raportul.",
         "done_fail": "Există erori (%d). Raportul cu pașaportul tehnic și logul este salvat:\n%s\n"
                      "Trimiteți-l dezvoltatorului — butoanele de mai jos deschid un issue sau un e-mail.",
         "chrome_missing": "Chrome nu este necesar pentru această versiune de Contragenti (căutarea se face prin data2b.md).",
         "chrome_get": "Descarcă Chrome",
-        "python_missing": "Comanda python nu funcționează. Contragenti.exe și Demo CRM funcționează fără ea; "
+        "python_missing": "Comanda python nu funcționează. Contragenti.exe funcționează fără ea; "
                           "este necesară pentru sdk/python. În PowerShell: python",
         "python_get": "Instalează Python (comanda python)",
         "python_offline": "Python nu a fost găsit; comanda python a fost omisă (offline / --offline).",
         "python_missing_modern": "Python nu a fost găsit. Acesta este un Windows modern: apăsați „Instalează Python” — "
                                  "se instalează prin winget sau Microsoft Store (un singur clic). "
-                                 "Contragenti.exe și Demo CRM funcționează și fără el; este necesar pentru sdk/python.",
+                                 "Contragenti.exe funcționează și fără el; este necesar pentru sdk/python.",
         "python_missing_legacy": "Python nu a fost găsit. Acesta este un Windows vechi, fără Store: apăsați "
                                  "„Instalează Python” — asistentul descarcă instalatorul oficial de pe python.org, "
                                  "verifică semnătura și îl instalează pentru utilizatorul curent. "
-                                 "Exe-ul și Demo CRM funcționează și fără el.",
+                                 "Exe-ul funcționează și fără el.",
         "python_installed": "Python instalat: %s %s (prin %s).",
         "python_get_store": "Instalează Python (winget / Microsoft Store)",
         "python_get_org": "Instalează Python 3.12 de pe python.org",
@@ -1072,6 +1069,10 @@ class Wizard:
             shutil.rmtree(tmpdir, ignore_errors=True)
 
     def do_config(self):
+        if not os.path.exists(self.paths.demo_exe):
+            # Demo CRM не входит в эту сборку — настраивать нечего
+            self.step("st_config", "skip")
+            return
         try:
             launcher = self.paths.contragenti_exe if os.path.exists(self.paths.contragenti_exe) \
                 else self.paths.contragenti_py
@@ -1104,7 +1105,8 @@ class Wizard:
             self.step("st_seed", "skip")
             return
         if not os.path.exists(self.paths.demo_exe):
-            self.step("st_seed", "fail", "нет %s" % self.paths.demo_exe)
+            # Demo CRM не входит в эту сборку — сеять демо-данные некуда
+            self.step("st_seed", "skip")
             return
         try:
             code, text = self.run_exe([self.paths.demo_exe, "--seed-demo"], "seed_demo.log")
@@ -1158,9 +1160,7 @@ class Wizard:
             except Exception as exc:  # noqa: BLE001
                 ok = False
                 results.append("Demo CRM: %s" % exc)
-        else:
-            ok = False
-            results.append("ContragentiCRM.exe: нет")
+        # Demo CRM не входит в эту сборку — её отсутствие не считается ошибкой
         self.step("st_selftest", "ok" if ok else "fail", "; ".join(results))
 
     def run_all(self):
@@ -1171,8 +1171,6 @@ class Wizard:
         self.do_release()
         self.do_update()
         self.do_database()
-        self.do_config()
-        self.do_seed()
         self.do_shortcuts()
         self.do_selftest()
         self.report_file = self.write_report()
@@ -1333,9 +1331,9 @@ def run_gui(lang, offline, auto=False, shot=""):
 
     opts = ttk.Frame(root, padding=(12, 0))
     opts.pack(fill="x")
-    vars_ = {k: tk.BooleanVar(value=True) for k in ("python", "update", "db", "seed", "selftest", "shortcuts")}
+    vars_ = {k: tk.BooleanVar(value=True) for k in ("python", "update", "db", "selftest", "shortcuts")}
     checks = {}
-    for key in ("python", "update", "db", "seed", "selftest", "shortcuts"):
+    for key in ("python", "update", "db", "selftest", "shortcuts"):
         cb = ttk.Checkbutton(opts, text=t("opt_" + key), variable=vars_[key])
         cb.pack(anchor="w")
         checks[key] = cb
@@ -1604,7 +1602,6 @@ def run_gui(lang, offline, auto=False, shot=""):
     start_btn.configure(command=start_apps)
 
     if auto:
-        vars_["seed"].set("--no-seed" not in sys.argv)
         vars_["python"].set("--no-python" not in sys.argv)
         root.after(400, on_run)
 
@@ -1684,7 +1681,7 @@ def main(argv=None):
             except (AttributeError, ValueError):
                 pass
         wiz = Wizard(lang, {"update": "--no-update" not in argv, "db": True,
-                            "seed": "--no-seed" not in argv, "selftest": True, "shortcuts": True,
+                            "selftest": True, "shortcuts": True,
                             "python": "--no-python" not in argv, "quiet": True},
                      log_cb=lambda line: print(line), offline=offline)
         try:
