@@ -3174,7 +3174,8 @@ def run_selftest():
         SETTINGS_PATH = os.path.join(tempfile.mkdtemp(), "settings.json")
         try:
             defaults = settings_load()          # файла нет — значения по умолчанию
-            assert defaults == {"src_gov": True, "src_d2b": True,
+            # OfficePlus-сборка: date.gov.md отключён безусловно (см. settings_load)
+            assert defaults == {"src_gov": False, "src_d2b": True,
                                 "src_db": True, "headless": False}, defaults
             assert settings_save({"src_gov": False, "src_d2b": True,
                                   "src_db": False, "headless": True})
@@ -3183,7 +3184,7 @@ def run_selftest():
             assert got["src_d2b"] is True and got["headless"] is True, got
             with open(SETTINGS_PATH, "w", encoding="utf-8") as f:
                 f.write("{ broken")           # повреждённый файл не должен ронять
-            assert settings_load()["src_gov"] is True
+            assert settings_load()["src_gov"] is False
         finally:
             SETTINGS_PATH = keep
 
