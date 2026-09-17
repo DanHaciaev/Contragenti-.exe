@@ -1,116 +1,21 @@
 {
-  "_comment": "Манифест обновления: его читает мастер настройки (setup_wizard.py / «ContragentiSetup.exe») и тонкий установщик (installer_exe.py / «Contragenti-<версия>-setup.exe») по адресу raw.githubusercontent.com/PavelTuhari/Contragenti/main/release.json. version сравнивается с файлом VERSION в установке; если тут новее и указан msi_url — мастер предлагает скачать новый установщик. app_zip_url/app_zip_size/app_zip_sha256 — полная сборка (build/exe.win-*), которую тонкий setup.exe скачивает и распаковывает при установке (сам exe программу и Python не содержит — маленький файл, только окно и загрузчик; MSI остаётся полностью автономным, для установки без интернета). components — файлы, которые обновляются поверх установки без переустановки (src — путь в репозитории, dst — путь относительно каталога установки). database.zip — стартовая база компаний date.gov.md, сливается с локальной companies.db по ключу IDNO. developer — куда мастер предлагает отправить отчёт об ошибках (issue на GitHub или письмо; отправляет пользователь).",
-  "version": "1.3.7",
-  "released": "2026-09-08",
-  "msi_url": "https://github.com/PavelTuhari/Contragenti/raw/main/release/Contragenti-1.3.7-win64.msi",
-  "notes": "1.3.7: самообновление из git на macOS/Linux — при запуске из клона репозитория утилита сама проверяет GitHub (при старте и по кнопке «Файл -> Проверить обновления») и подтягивает изменения (git pull --ff-only), если рабочая копия чистая, затем перезапускается. Если есть локальные незакоммиченные правки — обновление пропускается, чтобы их не затереть. На Windows программа фризится в exe и обновляется отдельно, через мастер настройки/release.json — это изменение на неё не влияет.",
-  "components": [
-    {
-      "src": "crm_delphi/ContragentiCRM.exe",
-      "dst": "DemoCRM/ContragentiCRM.exe",
-      "kind": "exe"
-    },
-    {
-      "src": "crm_delphi/lang.json",
-      "dst": "DemoCRM/lang.json"
-    },
-    {
-      "src": "crm_delphi/processes.json",
-      "dst": "DemoCRM/processes.json"
-    },
-    {
-      "src": "crm_delphi/sample_card.xml",
-      "dst": "DemoCRM/sample_card.xml"
-    },
-    {
-      "src": "crm_delphi/README_ru.md",
-      "dst": "DemoCRM/README_ru.md"
-    },
-    {
-      "src": "INTEGRATION.md",
-      "dst": "INTEGRATION.md"
-    },
-    {
-      "src": "INSTALL_WINDOWS_ru.md",
-      "dst": "INSTALL_WINDOWS_ru.md"
-    },
-    {
-      "src": "INSTALL_MSI_ru.md",
-      "dst": "INSTALL_MSI_ru.md"
-    },
-    {
-      "src": "sdk/python/contragenti_sdk.py",
-      "dst": "sdk/python/contragenti_sdk.py"
-    },
-    {
-      "src": "sdk/cpp/contragenti_sdk.h",
-      "dst": "sdk/cpp/contragenti_sdk.h"
-    },
-    {
-      "src": "sdk/cpp/example.cpp",
-      "dst": "sdk/cpp/example.cpp"
-    },
-    {
-      "src": "sdk/README.md",
-      "dst": "sdk/README.md"
-    },
-    {
-      "src": "INSTALL_RO.md",
-      "dst": "INSTALL_RO.md"
-    }
-  ],
+  "_comment": "Манифест обновления OfficePlus-форка: его читает мастер настройки (setup_wizard.py / «ContragentiSetup.exe») по адресу raw.githubusercontent.com/DanHaciaev/Contragenti-.exe/main/release.json. version сравнивается с файлом VERSION в установке; если тут новее и указан msi_url — мастер предлагает скачать новый установщик. components и update_zip намеренно пусты: этот форк не самообновляется поверх установки (Demo CRM убрана насовсем, date.gov.md отключён) — переустановка делается только через новый MSI.",
+  "version": "1.3.8",
+  "released": "2026-09-17",
+  "msi_url": "https://github.com/DanHaciaev/Contragenti-.exe/raw/main/Contragenti-1.3.8-win64.msi",
+  "notes": "1.3.8 (OfficePlus): date.gov.md отключён навсегда (поиск только через data2b.md), Demo CRM полностью убрана из установки, автообновление компонентов с GitHub отключено.",
+  "components": [],
   "database": {
     "zip": "data/companies_seed.zip",
     "file": "companies.db",
-    "note": "публичные данные реестра date.gov.md, накопленные утилитой; сливаются INSERT OR IGNORE по key (IDNO)"
+    "note": "стартовая база компаний, сливается с локальной companies.db по ключу IDNO"
   },
   "developer": {
-    "name": "Pavel Tuhari",
-    "github_issues": "https://github.com/PavelTuhari/Contragenti/issues/new",
-    "email": "ptuhari@gmail.com"
+    "name": "OfficePlus",
+    "github_issues": "https://github.com/DanHaciaev/Contragenti-.exe/issues/new",
+    "email": ""
   },
-  "update_zip": "https://github.com/PavelTuhari/Contragenti/raw/main/release/Contragenti-update-1.3.7.zip",
-  "update_zip_size": 2732567,
-  "update_zip_sha256": "2b56d25d6bef90234369b4a369e42926173ff2631612cfc64474a796b7636e7c",
-  "msi_size": 41062400,
-  "msi_sha256": "2a990bb270af583dbe057d4ae609b0f997bc366ac125200b9493e0105a723fca",
-  "exe_url": "https://github.com/PavelTuhari/Contragenti/raw/main/release/Contragenti-1.3.7-setup.exe",
-  "exe_size": 11850843,
-  "exe_sha256": "f553b27402a84dc56f9bc3a4fd9fce7359ca03a349d6c70223cd1670bf97d927",
-  "app_zip_url": "https://github.com/PavelTuhari/Contragenti/raw/main/release/Contragenti-1.3.7-app.zip",
-  "app_zip_size": 41991472,
-  "app_zip_sha256": "f75d0dfc278cfa3aa87e9deb4a7611443dd4dbcd6e137c09b083aae4065acb64",
-  "macos_pkg_url": "https://github.com/PavelTuhari/Contragenti/raw/main/release/Contragenti-1.3.7-macos.pkg",
-  "macos_pkg_size": 42479984,
-  "macos_pkg_sha256": "83d9c12ff9dcdf5a64d0db69d21878af8a8d041e60a32f70fba7af4d89cd5891",
-  "macos_app_zip_url": "https://github.com/PavelTuhari/Contragenti/raw/main/release/Contragenti-1.3.7-macos-app.zip",
-  "macos_app_zip_size": 42838588,
-  "macos_app_zip_sha256": "b16da27e1b5453604ebea7dac8340613d15b7260b73eb6ac881ec605812179ef",
-  "macos_democrm_zip_url": "https://github.com/PavelTuhari/Contragenti/raw/main/release/Contragenti-1.3.7-macos-democrm.zip",
-  "macos_democrm_zip_size": 1101561,
-  "macos_democrm_zip_sha256": "be5dc1d3b4ea429d40a71c6fd1fce90bead539374fcc4a16b2f6d6f3d5ffb617",
-  "macos_install_sh": "https://github.com/PavelTuhari/Contragenti/raw/main/release/contragenti-macos-install.sh",
-  "macos_arch": "arm64",
-  "macos_components": [
-    {
-      "src": "setup_wizard_macos.py",
-      "dst": "setup_wizard_macos.py"
-    },
-    {
-      "src": "setup_common.py",
-      "dst": "setup_common.py"
-    },
-    {
-      "src": "INSTALL_MACOS_ru.md",
-      "dst": "INSTALL_MACOS_ru.md"
-    },
-    {
-      "src": "INSTALL_MACOS_RO.md",
-      "dst": "INSTALL_MACOS_RO.md"
-    },
-    {
-      "src": "crm_macos/README_ru.md",
-      "dst": "DemoCRM/README_macos_ru.md"
-    }
-  ]
+  "update_zip": "",
+  "msi_size": 30433280,
+  "msi_sha256": "881ee5edb718beedab4c3ba9d090273c329affaded53c9746e1a5c1aba7c7499"
 }

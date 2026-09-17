@@ -14,7 +14,7 @@ import sqlite3
 import urllib.error
 import urllib.request
 
-REPO = "PavelTuhari/Contragenti"
+REPO = "DanHaciaev/Contragenti-.exe"
 RAW_BASE = f"https://raw.githubusercontent.com/{REPO}/main/"
 RELEASE_URL = RAW_BASE + "release.json"
 NET_TIMEOUT = 12
